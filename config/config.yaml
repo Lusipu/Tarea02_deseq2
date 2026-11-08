@@ -1,0 +1,46 @@
+# (Generado con IA)
+
+# Configuracion del analisis DESeq2 (tarea 02)
+# Si algun nombre de columna de metadata no coincide con los de tus datos,
+# se cambia aqui y no hace falta tocar el script.
+
+# --- Ficheros de entrada (rutas relativas a la carpeta del proyecto) ---
+counts_file: "data/raw/counts.csv.gz"
+metadata_file: "data/raw/metadata.csv.gz"
+
+# --- Carpetas de salida ---
+results_dir: "results"
+logs_dir: "logs"
+processed_dir: "data/processed"
+
+# --- Columnas de metadata.csv.gz ---
+# col_muestra: columna con el identificador de cada muestra (el mismo que en counts)
+# col_condicion: columna con el tipo de tejido (tumor / normal)
+# col_placa: columna con la placa de secuenciacion. Si se pone null el modelo
+#            no corrige por placa.
+# Si el script no encuentra col_muestra o col_condicion intenta adivinarlas solo.
+col_muestra: "sample"
+col_condicion: "condition"
+col_placa: "plate"
+
+# --- Grupos que se comparan ---
+# El contraste es nivel_tumor frente a nivel_normal, asi que
+# log2FoldChange > 0 significa mas expresion en tumor.
+nivel_tumor: "Primary_Solid_Tumor"
+nivel_normal: "Solid_Tissue_Normal"
+
+# --- Filtros y umbrales ---
+min_conteos: 10      # se quitan genes cuya suma de conteos en todas las muestras es menor que esto
+padj_umbral: 0.05    # umbral de significacion (FDR)
+lfc_umbral: 1        # umbral biologico |log2FoldChange| > 1
+
+# --- Enriquecimiento funcional ---
+n_terminos_plot: 10  # cuantos terminos se dibujan en las figuras de GO y Reactome
+
+# --- Genes que se quieren revisar siempre en top_gene_context.txt ---
+genes_contexto:
+  - MKI67
+
+# --- Nucleos del ordenador para DESeq2 ---
+# 1 = sin paralelizar (lo mas seguro). Con mas nucleos va mas rapido en Linux/Mac.
+nucleos: 1
